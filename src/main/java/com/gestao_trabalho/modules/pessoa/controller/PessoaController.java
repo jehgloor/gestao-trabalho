@@ -29,7 +29,12 @@ public class PessoaController {
     }
 
     @GetMapping
-    public Page<Pessoa> findAll(PessoaFiltro filtro, Pageable page) {
+    public Page<PessoaResponse> findAll(PessoaFiltro filtro, Pageable page) {
         return service.findAll(filtro, page);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Integer id) {
+        service.delete(id);
     }
 }

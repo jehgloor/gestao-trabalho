@@ -25,7 +25,7 @@ public class PessoaService {
 
     public PessoaResponse edit(PessoaRequest request, Integer id) {
         var pessoa = findById(id);
-        pessoa.setNome(request.getNome());
+        pessoa.editAll(request);
         return PessoaResponse.convertFrom(pessoaRepository.save(pessoa));
     }
 
@@ -33,8 +33,13 @@ public class PessoaService {
         return pessoaRepository.findById(1).orElseThrow(() -> new NotFoundException("Pessoa não encontrada"));
     }
 
-    public Page<Pessoa> findAll(PessoaFiltro filtro, Pageable page) {
-        var pessoa = filtro.toPredicate().build();
-        return pessoaRepository.findAll(pessoa, page);
+    public Page<PessoaResponse> findAll(PessoaFiltro filtro, Pageable page) {
+        return pessoaRepository.findAll(filtro.toPredicate().build(), page)
+                .map(PessoaResponse::convertFrom);
+    }
+
+    public void delete(Integer id) {
+        var pessoa = findById(id);
+        pessoaRepository.delete(pessoa);
     }
 }

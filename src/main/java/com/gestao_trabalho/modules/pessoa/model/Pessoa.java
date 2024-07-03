@@ -27,4 +27,8 @@ public class Pessoa {
                 .nome(request.getNome())
                 .build();
     }
+
+    public void editAll(PessoaRequest request) {
+        this.nome = request.getNome();
+    }
 }
