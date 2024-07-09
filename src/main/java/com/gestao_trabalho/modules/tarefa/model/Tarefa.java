@@ -1,5 +1,7 @@
 package com.gestao_trabalho.modules.tarefa.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gestao_trabalho.modules.pessoa.model.Pessoa;
 import com.gestao_trabalho.modules.tarefa.dto.TarefaRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,6 +37,10 @@ public class Tarefa {
 
     @Column(name = "FINALIZADO")
     private boolean finalizado;
+
+    @ManyToOne
+    @JsonIgnore
+    private Pessoa pessoa;
 
     public static Tarefa convertFrom(TarefaRequest request) {
         return Tarefa.builder()

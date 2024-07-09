@@ -20,11 +20,16 @@ public class TarefaResponse {
 
     private boolean finalizado;
 
-//    public TarefaResponse convertFrom(Tarefa tarefa) {
-//        TarefaResponse.builder()
-//                .titulo(tarefa.getTitulo())
-//                .descricao(tarefa.getDescricao())
-//                .prazo(tarefa.getPrazo())
-//
-//    }
+    private Integer pessoaId;
+
+    public static TarefaResponse convertFrom(Tarefa tarefa) {
+        return TarefaResponse.builder()
+                .titulo(tarefa.getTitulo())
+                .descricao(tarefa.getDescricao())
+                .prazo(tarefa.getPrazo())
+                .duracao(tarefa.getDuracao())
+                .finalizado(tarefa.isFinalizado())
+                .pessoaId(tarefa.getPessoa() != null ? tarefa.getPessoa().getId() : null)
+                .build();
+    }
 }

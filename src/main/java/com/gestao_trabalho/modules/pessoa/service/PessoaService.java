@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PessoaService {
 
@@ -29,13 +31,17 @@ public class PessoaService {
         return PessoaResponse.convertFrom(pessoaRepository.save(pessoa));
     }
 
-    private Pessoa findById(Integer id) {
+    public Pessoa findById(Integer id) {
         return pessoaRepository.findById(1).orElseThrow(() -> new NotFoundException("Pessoa não encontrada"));
     }
 
     public Page<PessoaResponse> findAll(PessoaFiltro filtro, Pageable page) {
         return pessoaRepository.findAll(filtro.toPredicate().build(), page)
                 .map(PessoaResponse::convertFrom);
+    }
+
+    public List<PessoaResponse> findAllSemPredicate() {
+        return PessoaResponse.convertFrom(pessoaRepository.findAll());
     }
 
     public void delete(Integer id) {
