@@ -1,5 +1,6 @@
 package com.gestao_trabalho.modules.pessoa.model;
 
+import com.gestao_trabalho.modules.departamento.model.Departamento;
 import com.gestao_trabalho.modules.pessoa.dto.PessoaRequest;
 import com.gestao_trabalho.modules.tarefa.model.Tarefa;
 import jakarta.persistence.*;
@@ -28,9 +29,13 @@ public class Pessoa {
     @OneToMany(mappedBy = "pessoa")
     private List<Tarefa> tarefas;
 
-    public static Pessoa convertFrom(PessoaRequest request) {
+    @ManyToOne
+    private Departamento departamento;
+
+    public static Pessoa convertFrom(PessoaRequest request, Departamento departamento) {
         return Pessoa.builder()
                 .nome(request.getNome())
+                .departamento(departamento)
                 .build();
     }
 

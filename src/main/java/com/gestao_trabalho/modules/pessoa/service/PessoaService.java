@@ -1,6 +1,7 @@
 package com.gestao_trabalho.modules.pessoa.service;
 
 import com.gestao_trabalho.modules.comum.exception.model.NotFoundException;
+import com.gestao_trabalho.modules.departamento.service.DepartamentoService;
 import com.gestao_trabalho.modules.pessoa.dto.PessoaFiltro;
 import com.gestao_trabalho.modules.pessoa.dto.PessoaRequest;
 import com.gestao_trabalho.modules.pessoa.dto.PessoaResponse;
@@ -19,8 +20,12 @@ public class PessoaService {
     @Autowired
     PessoaRepository pessoaRepository;
 
+    @Autowired
+    DepartamentoService departamentoService;
+
     public PessoaResponse save(PessoaRequest request) {
-        var pessoa = Pessoa.convertFrom(request);
+        var departamento = departamentoService.getById(request.getDepartamentoId());
+        var pessoa = Pessoa.convertFrom(request, departamento);
         var pessoaSalva = pessoaRepository.save(pessoa);
         return PessoaResponse.convertFrom(pessoaSalva);
     }

@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class PessoaRequest {
 
     private String nome;
+
+    private Integer departamentoId;
 }

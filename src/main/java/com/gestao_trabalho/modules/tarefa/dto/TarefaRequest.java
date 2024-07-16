@@ -16,4 +16,6 @@ public class TarefaRequest {
 
     private Integer duracao;
 
+    private Integer departamentoId;
+
 }

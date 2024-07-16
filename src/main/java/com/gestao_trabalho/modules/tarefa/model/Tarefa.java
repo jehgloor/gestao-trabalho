@@ -1,6 +1,7 @@
 package com.gestao_trabalho.modules.tarefa.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gestao_trabalho.modules.departamento.model.Departamento;
 import com.gestao_trabalho.modules.pessoa.model.Pessoa;
 import com.gestao_trabalho.modules.tarefa.dto.TarefaRequest;
 import jakarta.persistence.*;
@@ -41,6 +42,9 @@ public class Tarefa {
     @ManyToOne
     @JsonIgnore
     private Pessoa pessoa;
+
+    @ManyToOne
+    private Departamento departamento;
 
     public static Tarefa convertFrom(TarefaRequest request) {
         return Tarefa.builder()
